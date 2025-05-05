@@ -1,76 +1,102 @@
-# Email Web Application – Final Submission (CSCI 2170)
+# 📧 Email Web Application
 
-## Application Description
-
-This is a simple email interface built using **Node.js**, **Express**, and **MySQL**, with secure user authentication and session management. It allows users to log in, log out, and view their last successful login time using cookies.
+A secure web-based email system built with **Node.js**, **Express**, and **MySQL**, featuring user authentication, session management, and a fully functional inbox and sent mail interface. Users can log in, compose, and view emails, all within a clean UI styled with Bootstrap 5 and enhanced with custom CSS.
 
 ---
 
-## Setup & Installation
+## 🚀 Features
 
-### Prerequisites
+- 🔐 **User Authentication** – Login/logout with session-based auth
+- 🔒 **Secure Passwords** – SHA-256 hashing using Node's `crypto` module
+- 🕒 **Last Login Tracking** – Stored and displayed using cookies
+- 📥 **Inbox & Sent Mail Views** – Emails pulled from a MySQL database
+- 📝 **Compose Email** – Send messages with sender/recipient tracking
+- 🔄 **Real-Time Updates** – Inbox polls for new mail every 60 seconds
+- 🌐 **REST-like API Structure** – All server actions are exposed via endpoints
+- 🛡️ **Protected Routes** – Redirects unauthenticated users
+- 🧩 **Modular Code Structure** – Clean separation of API, views, logic, and assets
+- 🎨 **Styled UI** – Bootstrap 5 with additional custom styling
+
+---
+
+## ⚙️ Setup & Installation
+
+### 🔧 Prerequisites
+
 - [Node.js](https://nodejs.org/)
-- [MAMP / MySQL](https://www.mamp.info/)
+- MySQL (e.g., via [MAMP](https://www.mamp.info/) or another stack)
 
-### Steps to Run
+### 📦 Steps to Run
 
 1. **Clone the Repository**
-   git clone https://git.cs.dal.ca/courses/2025-winter/csci-2170/assignments/a4/ddeepak.git
+   ```bash
+   git clone <your-repository-url>
+   cd email-web-app
+````
 
-2. **Navigate to the project folder**
-   cd a4
+2. **Install Dependencies**
 
-3. **Install dependencies**
+   ```bash
    npm install
+   ```
 
-4.	**Import the database**
-	•	Open phpMyAdmin or MySQL CLI
-	•	Import includes/db_dump.sql to create the email_app database and tables
+3. **Import the Database**
 
-5.	**Run the server**
+   * Open phpMyAdmin or MySQL CLI
+   * Import `includes/db_dump.sql` to create the `email_app` database
+
+4. **Start the Server**
+
+   ```bash
    node server.js
+   ```
 
-6.	Visit in browser
+5. **Open in Browser**
+
+   ```
    http://localhost:8000
+   ```
 
+---
 
-## Features Implemented
-	•	User login and logout with session-based authentication
-	•	Passwords stored securely using SHA-256 hashing (crypto module)
-	•	Last successful login time displayed using cookies
-	•	Inbox and sent email views pulled from MySQL database
-	•	Compose and send email functionality
-	•	Emails stored and shown in both sender’s sent view and recipient’s inbox
-	•	Asynchronous server communication using the fetch() API
-	•	Inbox view polls server every 60 seconds for new emails
-	•	RESTful API-like structure for all backend operations
-	•	Fully protected routes with redirect if user not authenticated
-	•	Modular folder and file structure for clean organization
-	•	Clear error and success messages for user feedback
-	•	Bootstrap 5 used for UI styling and layout
-	•	Custom CSS used alongside Bootstrap for additional style control
+## 📡 API Endpoints
 
-## API Endpoints (Milestone)
-	• POST - /api/auth/login - Log in a user
-	• GET - /api/auth/logout - Log out and destroy session
-	• GET - /api/user - Get logged-in user's name + last login
-	• GET - /api/emails/inbox - Get user's received emails
-	• GET - /api/emails/sent - Get user's sent emails
-	• POST - /api/emails/send - Sends a new email
+| Method | Endpoint            | Description                    |
+| ------ | ------------------- | ------------------------------ |
+| POST   | `/api/auth/login`   | Log in a user                  |
+| GET    | `/api/auth/logout`  | Log out and destroy session    |
+| GET    | `/api/user`         | Get user's name and last login |
+| GET    | `/api/emails/inbox` | Retrieve received emails       |
+| GET    | `/api/emails/sent`  | Retrieve sent emails           |
+| POST   | `/api/emails/send`  | Send a new email               |
 
-## Folder Structure
-The folder structure used in this assignment is based on the format introduced in previous assignments especially assignment 3 in this course. It showcases the separation of concerns and keeps the application modular and maintainable. For example:
+---
 
-	•	The api/ folder contains all API-like route handlers (auth.js, emails.js), clearly showing the backend logic from other layers.
-	•	The views/ folder contains HTML files for the client-side interface.
-	•	The includes/ folder contains reusable backend components such as the database configuration, connection logic, and the SQL dump.
-	•	Static assets like CSS files are placed under assets/, separating styling from logic and content.
-	•	The main server logic is kept in server.js at the root for easy access.
+## 🗂 Folder Structure
 
-This mirrors what was taught throughout the course and aligns with how we’ve been structuring the folders for previous assignments all semester.
+```
+email-web-app/
+│
+├── api/              # All API route logic (auth.js, emails.js)
+├── includes/         # DB config, connection, SQL dump
+├── views/            # Frontend HTML views (login, inbox, etc.)
+├── templates/        # Shared page components (header, footer)
+├── assets/           # Static files (CSS)
+├── server.js         # Main server file
+└── README.md
+```
 
-## References
-	•	https://www.npmjs.com/package/express-session
-	•	https://www.npmjs.com/package/cookie-parser
-	•	https://nodejs.org/api/crypto.html
-	•	https://getbootstrap.com/docs/5.0/getting-started/introduction/
+---
+
+## 📚 References
+
+* [express-session](https://www.npmjs.com/package/express-session)
+* [cookie-parser](https://www.npmjs.com/package/cookie-parser)
+* [Node.js crypto](https://nodejs.org/api/crypto.html)
+* [Bootstrap 5 Docs](https://getbootstrap.com/docs/5.0/getting-started/introduction/)
+
+---
+
+## 👨‍💻 Author
+
+**Darren Deepak**
