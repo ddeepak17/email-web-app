@@ -1,0 +1,48 @@
+<!--Inbox Page-->
+<h1 class="mb-4">Welcome to your inbox!</h1>
+<p id="lastLogin" class="mb-3 text-muted"></p>
+
+<div id="inboxList" class="mb-4"></div>
+
+<div class="d-flex gap-3">
+  <a href="/compose.html" class="btn btn-outline-primary">Compose</a>
+  <a href="/sent.html" class="btn btn-outline-secondary">View Sent</a>
+  <a href="/api/auth/logout" class="btn btn-outline-danger">Logout</a>
+</div>
+
+<script>
+  async function showLastLogin() {
+    const res = await fetch('/api/user');
+    if (res.ok) {
+      const data = await res.json();
+      document.getElementById('lastLogin').textContent = `You last logged in on: ${data.lastLogin}`;
+    }
+  }
+
+  async function loadInbox() {
+  const res = await fetch('/api/emails/inbox');
+  const emails = await res.json();
+  const list = document.getElementById("inboxList");
+
+  if (emails.length === 0) {
+    list.innerHTML = "<p>No emails found in your inbox.</p>";
+    } else {
+      list.innerHTML = emails.map(email => {
+        const date = new Date(email.sent_at);
+        const formatted = `${date.toLocaleDateString('en-GB')} at ${date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true })}`;
+        return `
+          <div class="border rounded p-3 mb-3 text-start">
+          <strong>From:</strong> ${email.sender_name}<br>
+          <strong>Subject:</strong> ${email.subject}<br>
+          <strong>Body:</strong> ${email.body}<br>
+          <small class="text-muted">Received at: ${formatted}</small>
+          </div>
+          `;
+      }).join('');
+    }
+  }
+
+  showLastLogin();
+  loadInbox();
+  setInterval(loadInbox, 60000);
+</script>

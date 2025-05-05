@@ -1,0 +1,35 @@
+<h2 class="mb-4">Sent Emails</h2>
+<div id="sentList" class="mb-4"></div>
+
+<div class="d-flex gap-3">
+  <a href="/compose.html" class="btn btn-outline-primary">Compose</a>
+  <a href="/inbox" class="btn btn-outline-secondary">Back to Inbox</a>
+  <a href="/api/auth/logout" class="btn btn-outline-danger">Logout</a>
+</div>
+
+<script>
+  async function loadSentEmails() {
+  const res = await fetch('/api/emails/sent');
+  const emails = await res.json();
+  const list = document.getElementById("sentList");
+
+  if (emails.length === 0) {
+    list.innerHTML = "<p>No sent emails found.</p>";
+    } else {
+      list.innerHTML = emails.map(email => {
+      const date = new Date(email.sent_at);
+      const formatted = `${date.toLocaleDateString('en-GB')} at ${date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true })}`;
+      return `
+        <div class="border rounded p-3 mb-3 text-start">
+          <strong>To:</strong> ${email.recipient_name}<br>
+          <strong>Subject:</strong> ${email.subject}<br>
+          <strong>Body:</strong> ${email.body}<br>
+          <small class="text-muted">Sent at: ${formatted}</small>
+        </div>
+        `;
+      }).join('');
+    }
+  }
+
+  loadSentEmails();
+</script>
